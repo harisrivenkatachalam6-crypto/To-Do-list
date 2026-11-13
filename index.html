@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow — Beautiful To-Do List</title>
+  <meta name="description" content="A beautiful, modern to-do list app to manage your tasks with style. Add, complete, and organize tasks effortlessly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Animated Background Orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-logo">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12L11 14L15 10M20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="logo-text">TaskFlow</span>
+      </div>
+      <div class="header-date" id="headerDate"></div>
+    </header>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="stat-card" id="statTotal">
+        <div class="stat-value" id="totalCount">0</div>
+        <div class="stat-label">Total Tasks</div>
+      </div>
+      <div class="stat-card stat-pending" id="statPending">
+        <div class="stat-value" id="pendingCount">0</div>
+        <div class="stat-label">Pending</div>
+      </div>
+      <div class="stat-card stat-done" id="statDone">
+        <div class="stat-value" id="doneCount">0</div>
+        <div class="stat-label">Completed</div>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-info">
+        <span class="progress-label">Overall Progress</span>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+    </div>
+
+    <!-- Add Task Input -->
+    <div class="add-task-card">
+      <div class="input-wrapper">
+        <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <input
+          type="text"
+          id="taskInput"
+          class="task-input"
+          placeholder="Add a new task…"
+          maxlength="150"
+          autocomplete="off"
+        />
+        <button class="add-btn" id="addBtn" title="Add Task">
+          <span>Add Task</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12H19M12 5L19 12L12 19" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs" role="tablist">
+      <button class="tab-btn active" id="tab-all" data-filter="all" role="tab" aria-selected="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+        All
+      </button>
+      <button class="tab-btn" id="tab-pending" data-filter="pending" role="tab" aria-selected="false">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+        Pending
+      </button>
+      <button class="tab-btn" id="tab-completed" data-filter="completed" role="tab" aria-selected="false">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Completed
+      </button>
+    </div>
+
+    <!-- Task List -->
+    <main class="task-list" id="taskList" role="list">
+      <!-- Tasks rendered by JS -->
+    </main>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState" hidden>
+      <div class="empty-icon">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="28" fill="url(#eg)" opacity="0.15"/>
+          <path d="M22 32L29 39L42 25" stroke="url(#eg2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="eg" x1="4" y1="4" x2="60" y2="60">
+              <stop offset="0%" stop-color="#a78bfa"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </linearGradient>
+            <linearGradient id="eg2" x1="22" y1="25" x2="42" y2="39">
+              <stop offset="0%" stop-color="#a78bfa"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <h2 class="empty-title" id="emptyTitle">No tasks yet!</h2>
+      <p class="empty-desc" id="emptyDesc">Add your first task above to get started.</p>
+    </div>
+
+    <!-- Bulk Actions Footer -->
+    <footer class="bulk-footer" id="bulkFooter">
+      <span class="bulk-info" id="bulkInfo"></span>
+      <button class="clear-btn" id="clearCompletedBtn" title="Remove all completed tasks">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6H21M8 6V4H16V6M19 6L18 20H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Clear Completed
+      </button>
+    </footer>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
